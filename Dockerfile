@@ -1,28 +1,31 @@
-FROM openjdk:19-alpine
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-ARG email="anna@example.com"
-LABEL "maintainer"=$email
-LABEL "rating"="Five Stars" "class"="First Class"
+    <groupId>com.example</groupId>
+    <artifactId>my-project</artifactId>
+    <version>1.0.0</version>
 
-USER root
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
-ENV AP /data/app
-ENV SCPATH /etc/supervisor/conf.d
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-RUN apk update
-
-# The daemons
-RUN apk add supervisor
-RUN mkdir -p /var/log/supervisor
-
-# Supervisor Configuration
-COPY ./supervisord/conf.d/* $SCPATH/
-
-# Application Code
-COPY *.js* $AP/
-
-WORKDIR $AP
-
-RUN apk add --update nodejs npm && npm install
-
-CMD ["supervisord", "-n"]
+    <dependencies>
+        <!-- Add your dependencies here -->
+    </dependencies>
+</project>
