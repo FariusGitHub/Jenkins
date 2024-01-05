@@ -5,8 +5,6 @@
   <properties/>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.85">
     <script>pipeline {
-    agent any
-
     stages {
         stage('Hello') {
             steps {
