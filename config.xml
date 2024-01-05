@@ -5,19 +5,34 @@
   <keepDependencies>false</keepDependencies>
   <properties/>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.85">
-    <script>pipeline {
-    agent any
-    stages {
-        stage('Hello') {
-            steps {
-                script {
-                    sh 'docker version'
-                    sh 'docker login -u ftjioesman -p Thx22docker!'
-                    sh 'docker images'
-                    sh 'docker ps -a'
+    <script>
+      pipeline {
+        agent any
+        stages {
+    
+             stage('Source') {
+                 steps {
+                     git changelog: false, poll: false, url: 'https://github.com/FariusGitHub/Jenkins.git'
+                 }
+             }
+             stage('Build') {
+                 steps {
+                  script {
+                     sh "mvn clean install"
+                     sh 'npm install'
+                     sh 'docker login -u ftjioesman -p Thx22docker!'
+                     sh 'docker build -t ftjioesman/cicd:latest .'
+                    }
+                 }
+             }
+          
+            stage('Push') {
+                steps {
+                    script {
+                        sh 'docker push ftjioesman/cicd:latest'
+                    }
                 }
             }
-        }
     }
 }</script>
     <sandbox>true</sandbox>
