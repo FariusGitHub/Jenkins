@@ -12,8 +12,8 @@
     
              stage('Source') {
                  steps {
-                     git changelog: false, poll: false, url: 'https://github.com/FariusGitHub/Jenkins.git'
-                 }
+                     git changelog: false, poll: false, url: 'https://github.com/spkane/docker-node-hello.git'
+                  }
              }
              stage('Build') {
                  steps {
