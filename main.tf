@@ -114,6 +114,6 @@ resource "aws_instance" "project6" {
     Name = "project6"
   }
 
-  user_data = file("installJenkins.sh")
+  user_data = file("install-packages.sh")
 
 }
