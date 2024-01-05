@@ -1,20 +1,27 @@
-<project>
+<flow-definition plugin="workflow-job@2.40">
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.scm.NullSCM"/>
-  <canRoam>true</canRoam>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.85">
+    <script>pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                script {
+                    sh 'docker version'
+                    sh 'docker login -u ftjioesman -p Thx22docker!'
+                    sh 'docker images'
+                    sh 'docker ps -a'
+                }
+            }
+        }
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
   <disabled>false</disabled>
-  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers class="vector"/>
-  <concurrentBuild>false</concurrentBuild>
-  <builders>
-    <hudson.tasks.Shell>
-      <command>echo "123"</command>
-    </hudson.tasks.Shell>
-  </builders>
-  <publishers/>
-  <buildWrappers/>
-</project>
+</flow-definition>
